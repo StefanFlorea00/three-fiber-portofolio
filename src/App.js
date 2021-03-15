@@ -9,6 +9,10 @@ import { BlendFunction, Resizer, KernelSize,GlitchMode  } from "postprocessing";
 import { Canvas, useFrame, useThree, extend,useResource} from "react-three-fiber";
 import { Scene } from './components/Scene'; 
 import { HtmlContent } from './components/HtmlContent';
+import { Instances } from './components/Instances';
+
+
+import state from './components/state'
 
 
 import { Html, softShadows, Icosahedron, MeshWobbleMaterial, MeshDistortMaterial, useCubeTexture, OrbitControls, CameraShake,useTexture, Cylinder, useProgress, PerspectiveCamera } from "@react-three/drei";
@@ -107,6 +111,11 @@ function Effects() {
 }
 
 function App() {
+  const domContent = useRef();
+
+  const scrollArea = useRef();
+  const onScroll = (e) => (state.top.current = e.target.scrollTop)
+  useEffect(()=> void onScroll({target: scrollArea.current}), [])
   // const cameraRef = useRef();
   // useFrame(() => {
   //   // animate each sphere in the array
@@ -114,6 +123,10 @@ function App() {
   // })
   return (
     <>
+        <div className="scroll-area" ref={scrollArea} onScroll={onScroll}>
+      <div style = {{position:'sticky', top:0}} ref={domContent}></div>
+      <div style={{height: `${state.pages * 100}vh`}}></div>
+    </div>
     <Canvas 
     gl={{ powerPreference: "high-performance", alpha: false, antialias: false, stencil: false, depth: false }}
     shadowMap colorManagement onCreated={state => state.gl.setClearColor("#070c0d")} >
@@ -133,12 +146,12 @@ function App() {
         color={"#fafafa"}
       />
       <Suspense fallback={<Html center>Loading.</Html>}>
-        <Scene />
-        <HtmlContent />
+        <Instances/>
+        <HtmlContent domContent={domContent} />
+        {/* <Scene/> */}
       </Suspense>
       {/* <OrbitControls
       /> */}
-
       <Effects/>
     </Canvas>
     </>

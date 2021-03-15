@@ -3,9 +3,9 @@ import {Navbar} from "./Navbar";
 
 import "./HtmlContent.scss";
 
-export const HtmlContent = () => {
+export const HtmlContent = ({domContent}) => {
     return (
-    <Html fullscreen>
+    <Html portal={domContent} fullscreen>
       <Navbar />
       <div className="front-section">
         <div className="title-div">
@@ -18,10 +18,6 @@ export const HtmlContent = () => {
           </div>
         </div>
       </div>
-      <div className="front-section"></div>
-      <div className="front-section"></div>
-      <div className="front-section"></div>
-      <div className="front-section"></div>
     </Html>
     )
   }

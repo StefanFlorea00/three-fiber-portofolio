@@ -26,7 +26,7 @@ export function Scene() {
           radius={1}
           distort={0.4}
         />
-        <Instances material={matRef.current}/>
+        <Instances/>
       </>
     )
   
