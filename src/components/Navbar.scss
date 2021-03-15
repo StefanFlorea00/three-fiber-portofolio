@@ -1,0 +1,31 @@
+.navbar {
+  width: 100%;
+  ul {
+    color: white;
+    display: flex;
+    list-style-type: none;
+
+    .nav-left {
+      justify-self: flex-start;
+    }
+
+    .nav-right {
+      display: flex;
+      margin-left: auto;
+    }
+
+    li {
+      opacity: 0.8;
+      background-color: #c42727;
+      background-color: #192a2e;
+      
+      padding: 10px 50px;
+      display: flex;
+      align-content: center;
+
+      a {
+        color: white;
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+.front-section {
+    height: 500px;
+    .title-div {
+        margin-top: 7%;
+        height: 500px;
+        width: 50%;
+        margin-left: auto;
+        margin-right: 5%;
+        padding: 30px;
+    }
+
+    .button-div {
+        display: flex;
+        justify-content: space-around;
+        padding: 30px;
+        width: 50%;
+    }
+}
+
+.centered {
+    margin-left: auto;
+    margin-right: auto;
+}
