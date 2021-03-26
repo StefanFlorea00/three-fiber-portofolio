@@ -113,9 +113,6 @@ function Effects() {
 function App() {
   const domContent = useRef();
 
-  const scrollArea = useRef();
-  const onScroll = (e) => (state.top.current = e.target.scrollTop)
-  useEffect(()=> void onScroll({target: scrollArea.current}), [])
   // const cameraRef = useRef();
   // useFrame(() => {
   //   // animate each sphere in the array
@@ -123,38 +120,60 @@ function App() {
   // })
   return (
     <>
-        <div className="scroll-area" ref={scrollArea} onScroll={onScroll}>
-      <div style = {{position:'sticky', top:0}} ref={domContent}></div>
-      <div style={{height: `${state.pages * 100}vh`}}></div>
+
+    <div className="bg">
+      <Canvas 
+      gl={{ powerPreference: "high-performance", alpha: false, antialias: false, stencil: false, depth: false }}
+      shadowMap colorManagement onCreated={state => state.gl.setClearColor("#070c0d")} >
+        <ambientLight intensity={.5} color="#90fff1"></ambientLight>
+        <fog color="#161616" attach="fog" near={8} far={30} />
+        <directionalLight
+          castShadow
+          position={[5,5,-3]}
+          intensity={1}
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024}
+          shadow-camera-far={50}
+          shadow-camera-left={-10}
+          shadow-camera-right={10}
+          shadow-camera-top={10}
+          shadow-camera-bottom={-10}
+          color={"#fafafa"}
+        />
+        <Suspense fallback={<Html center>Loading.</Html>}>
+          <Instances/>
+          {/* <HtmlContent domContent={domContent} /> */}
+          {/* <Scene/> */}
+        </Suspense>
+        {/* <OrbitControls
+        /> */}
+        <Effects/>
+      </Canvas>
     </div>
-    <Canvas 
-    gl={{ powerPreference: "high-performance", alpha: false, antialias: false, stencil: false, depth: false }}
-    shadowMap colorManagement onCreated={state => state.gl.setClearColor("#070c0d")} >
-      <ambientLight intensity={.5} color="#90fff1"></ambientLight>
-      <fog color="#161616" attach="fog" near={8} far={30} />
-      <directionalLight
-        castShadow
-        position={[5,5,-3]}
-        intensity={1}
-        shadow-mapSize-width={1024}
-        shadow-mapSize-height={1024}
-        shadow-camera-far={50}
-        shadow-camera-left={-10}
-        shadow-camera-right={10}
-        shadow-camera-top={10}
-        shadow-camera-bottom={-10}
-        color={"#fafafa"}
-      />
-      <Suspense fallback={<Html center>Loading.</Html>}>
-        <Instances/>
-        <HtmlContent domContent={domContent} />
-        {/* <Scene/> */}
-      </Suspense>
-      {/* <OrbitControls
-      /> */}
-      <Effects/>
-    </Canvas>
+    <div className="html-text">
+      <div className="front-section">
+          <div className="title-div">
+            <h1>Hello</h1>
+            <p>This is some text </p>
+            <p>This is some long long long long long long long long long long long long long long text </p>
+            <div className="button-div centered">
+              <button className="primary-btn">About me</button>
+              <button className="primary-btn">My work</button>
+            </div>
+          </div>
+          <div className="title-div">
+            <h1>Hello</h1>
+            <p>This is some text </p>
+            <p>This is some long long long long long long long long long long long long long long text </p>
+            <div className="button-div centered">
+              <button className="primary-btn">About me</button>
+              <button className="primary-btn">My work</button>
+            </div>
+          </div>
+      </div>
+    </div>
     </>
+    
   )
 }
 
